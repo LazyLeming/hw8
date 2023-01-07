@@ -1,0 +1,174 @@
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
+#include <windows.h>
+#include <algorithm>
+
+using namespace std;
+
+void cycleLineRigth(int* A, int column, int n) {
+        for (int i = 0; i < column; i++)
+            cout << "  " << A[i];
+        cout << endl;
+        for (int i = 0; i < n; i++)
+        {
+            int b = A[column - 1];
+            int j;
+            for (j = column - 1; j > 0; j--)
+                A[j] = A[j - 1];
+            A[j] = b;
+        }
+
+    }
+
+void cycleLineLeft(int* A, int column, int n) {
+    for (int i = 0; i < column; i++)
+        cout << "  " << A[i];
+    cout << endl;
+    for (int i = 0; i < n; i++)
+    {
+        int b = A[0];
+        int j;
+        for (j = 0; j < 2; j++)
+            A[j] = A[j + 1];
+        A[j] = b;
+    }
+
+}
+
+void cycleLineDown(int* A, int line, int n) {
+
+    for (int i = 0; i < n; i++)
+    {
+        int b = A[line - 1];
+        int j;
+        for (j = line - 1; j > 0; j--)
+            A[j] = A[j - 1];
+        A[j] = b;
+    }
+
+}
+
+
+int main() {
+
+    setlocale(LC_ALL, "rus");
+        int s = 0;
+        int n;
+        int A[3];
+        bool flag = false;
+        int l = 0;
+        int r = 9;
+        int mid;
+        cout << "Введите номер программы: ";
+        cin >> s;
+
+        switch (s) 
+        {
+        case 1:
+
+            int arr[10];
+            int key;
+            cout << "Введите 10 чисел для заполнения массива: " << endl;
+            for (int i = 0; i < 10; i++) {
+                cin >> arr[i];
+            }
+            sort(arr, arr + 10);
+            cout << endl << "Введите ключ: ";
+            cin >> key;
+            
+            while ((l <= r) && (flag != true)) {
+                mid = (l + r) / 2;
+
+                if (arr[mid] == key) flag = true;
+                if (arr[mid] > key) r = mid - 1;
+                else l = mid + 1;
+            }
+            if (flag) cout << "Индекс элемента " << key << " в массиве равен: " << mid;
+            else cout << "Извините, но такого элемента в массиве нет";
+            system("pause");
+        case 2:
+            cout << "Введите количество рекурсий: ";
+            cin >> n;
+            int B[3][3];
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    B[i][j] = rand() % 100;
+                    A[j] = B[i][j];
+                }
+                cycleLineRigth(A, 3, n);
+                for (int j = 0; j < 3; j++) {
+                    B[i][j] = A[j];
+                }
+            }
+            cout << "Преобразованная матрица:\n";
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    cout << "  " << B[i][j];
+                }
+
+                cout << "\n";
+            }
+            break;
+        case 3:
+            cout << "Введите количество рекурсий: ";
+            cin >> n;
+            int C[3][3];
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    C[i][j] = rand() % 100;
+                    A[j] = C[i][j];
+                }
+                cycleLineLeft(A, 3, n);
+                for (int j = 0; j < 3; j++) {
+                    C[i][j] = A[j];
+                }
+            }
+            cout << "Преобразованная матрица:\n";
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    cout << "  " << C[i][j];
+                }
+
+                cout << "\n";
+            }
+            break;
+        case 4:
+            cout << "Введите количество рекурсий: ";
+            cin >> n;
+            int D[3][3];
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    D[i][j] = rand() % 100;
+                }
+            }
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    cout << "  " << D[i][j];
+                }
+                cout << endl;
+            }
+            for (int j = 0; j < 3; j++) {
+                for (int i = 0; i < 3; i++) {
+                    A[i] = D[i][j];
+                }
+                cycleLineDown(A, 3, n);
+                for (int i = 0; i < 3; i++) {
+                    D[i][j] = A[i];
+                }
+            }
+            cout << "Преобразованная матрица:\n";
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    cout << "  " << D[i][j];
+                }
+                cout << "\n";
+            }
+            break;
+        }
+
+while (s > 0);;
+     
+
+    return 0;
+}
